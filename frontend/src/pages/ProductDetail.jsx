@@ -20,7 +20,7 @@ export default function ProductDetail() {
   const toggleFavorite = async () => {
     try {
       await API.post(`/user/favorite/${id}`);
-      alert("Updated ❤️");
+      alert("Updated");
     } catch (err) {
       alert("Login required");
     }
@@ -68,7 +68,7 @@ export default function ProductDetail() {
               onClick={toggleFavorite}
               className="flex-1 bg-red-500 text-white px-6 py-3 rounded-2xl font-bold shadow-lg hover:bg-red-600 active:scale-95 transition flex items-center justify-center gap-2"
             >
-              <span>❤️</span> Favorite
+              <span>Favorite</span>
             </button>
 
             <button

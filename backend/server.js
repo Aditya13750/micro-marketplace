@@ -14,7 +14,10 @@ connectDB();
 
 const app = express();
 
-app.use(cors());
+app.use(cors({
+  origin: ["https://micro-marketplace-opal.vercel.app", "http://localhost:5173", "http://localhost:3000"],
+  credentials: true
+}));
 
 app.use(express.json());
 
@@ -23,7 +26,7 @@ app.use("/products", productRoutes);
 app.use("/user", userRoutes);
 
 app.get("/", (req, res) => {
-  res.send("API Running 🚀");
+  res.send("API Running");
 });
 
 app.use(errorHandler);

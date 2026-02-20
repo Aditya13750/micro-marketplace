@@ -105,7 +105,7 @@ const seedData = async () => {
     await User.insertMany(users);
     await Product.insertMany(products);
 
-    console.log("🌱 Data Seeded Successfully");
+    console.log("Data Seeded Successfully");
     process.exit();
   } catch (error) {
     if (error.name === "ValidationError") {

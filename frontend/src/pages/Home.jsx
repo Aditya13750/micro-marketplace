@@ -15,15 +15,15 @@ export default function Home() {
   // 🔹 Fetch products
   const fetchProducts = async () => {
     try {
-      console.log(`🔍 Fetching products: search="${search}", page=${page}`);
+      console.log(`Fetching products: search="${search}", page=${page}`);
       const res = await API.get(
         `/products?search=${search}&page=${page}&limit=6`
       );
-      console.log("✅ Products fetched:", res.data.products.length);
+      console.log("Products fetched:", res.data.products.length);
       setProducts(res.data.products);
       setPages(res.data.pages);
     } catch (err) {
-      console.error("❌ Error fetching products:", err);
+      console.error("Error fetching products:", err);
     }
   };
 
@@ -38,14 +38,14 @@ export default function Home() {
     }
 
     try {
-      console.log("👤 Fetching user data...");
+      console.log("Fetching user data...");
       const res = await API.get("/auth/me");
-      console.log("✅ User data received:", res.data.name);
-      console.log("📋 Favorites list:", res.data.favorites.map(f => f._id || f));
+      console.log("User data received:", res.data.name);
+      console.log("Favorites list:", res.data.favorites.map(f => f._id || f));
       setUser(res.data);
       setFavorites(res.data.favorites.map((f) => f._id || f));
     } catch (err) {
-      console.error("❌ Favorites/User error:", err.response?.data || err.message);
+      console.error("Favorites/User error:", err.response?.data || err.message);
       if (err.response?.status === 401) {
         localStorage.removeItem("token");
         setUser(null);
@@ -61,7 +61,7 @@ export default function Home() {
   // 🔹 Toggle favorite
   const toggleFavorite = async (id) => {
     const token = localStorage.getItem("token");
-    console.log("❤️ Toggle attempt for ID:", id);
+    console.log("Toggle attempt for ID:", id);
 
     if (!token) {
       alert("Please login first");
@@ -71,10 +71,10 @@ export default function Home() {
 
     try {
       const res = await API.post(`/user/favorite/${id}`);
-      console.log("✅ Toggle success. New favorites:", res.data);
+      console.log("Toggle success. New favorites:", res.data);
       fetchFavorites(); // refresh UI
     } catch (err) {
-      console.error("❌ Toggle error", err);
+      console.error("Toggle error", err);
     }
   };
 
@@ -84,7 +84,7 @@ export default function Home() {
       {/* HEADER */}
       <div className="text-center mb-8">
         <h1 className="text-4xl font-bold text-gray-800">
-          {user ? `👋 Welcome back, ${user.name}!` : "🛒 Explore Products"}
+          {user ? `Welcome back, ${user.name}!` : "Explore Products"}
         </h1>
         <p className="text-gray-600 mt-2">
           {user ? "Great to see you again! Check out our latest arrivals." : "Login to explore products and save your favorites!"}
@@ -95,7 +95,7 @@ export default function Home() {
       <div className="max-w-xl mx-auto mb-8">
         <input
           type="text"
-          placeholder="🔍 Search products..."
+          placeholder="Search products..."
           value={search}
           onChange={(e) => {
             setSearch(e.target.value);
@@ -123,9 +123,9 @@ export default function Home() {
                 />
                 <button
                   onClick={() => toggleFavorite(p._id)}
-                  className="absolute top-3 right-3 bg-white/80 backdrop-blur-sm p-2 rounded-full shadow-md text-2xl hover:scale-110 active:scale-95 transition"
+                  className="absolute top-3 right-3 bg-white/80 backdrop-blur-sm p-2 rounded-full shadow-md text-sm font-bold hover:scale-110 active:scale-95 transition"
                 >
-                  {favorites.some(favId => favId.toString() === p._id.toString()) ? "❤️" : "🤍"}
+                  {favorites.some(favId => favId.toString() === p._id.toString()) ? "Liked" : "Like"}
                 </button>
               </div>
 

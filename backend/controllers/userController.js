@@ -4,12 +4,12 @@ export const toggleFavorite = async (req, res) => {
   try {
     const user = await User.findById(req.user.id);
     if (!user) {
-      console.log("⚠️ User not found in toggleFavorite:", req.user.id);
+      console.log("User not found in toggleFavorite:", req.user.id);
       return res.status(404).json({ msg: "User not found" });
     }
 
     const productIdStr = req.params.productId;
-    console.log(`❤️ Toggling favorite: User=${user.email}, ProductID=${productIdStr}`);
+    console.log(`Toggling favorite: User=${user.email}, ProductID=${productIdStr}`);
 
     const exists = user.favorites.some((id) => id.toString() === productIdStr);
 
