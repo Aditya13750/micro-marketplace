@@ -14,10 +14,13 @@ connectDB();
 
 const app = express();
 
-app.use(cors({
-  origin: ["https://micro-marketplace-opal.vercel.app", "http://localhost:5173", "http://localhost:3000"],
-  credentials: true
-}));
+app.use(cors()); // Allow all origins for easier deployment troubleshooting
+
+// Simple Request Logger for Deployment Debugging
+app.use((req, res, next) => {
+  console.log(`${req.method} ${req.url} - Origin: ${req.headers.origin}`);
+  next();
+});
 
 app.use(express.json());
 
