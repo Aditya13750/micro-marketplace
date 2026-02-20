@@ -10,35 +10,21 @@ import userRoutes from "./routes/userRoutes.js";
 import errorHandler from "./middleware/errorMiddleware.js";
 
 dotenv.config();
-
-
 connectDB();
 
 const app = express();
 
-
-const allowedOrigins = [
-  "http://localhost:5173",
-  "https://micro-marketplace-opal.vercel.app"
-];
-
 app.use(
   cors({
-    origin: function (origin, callback) {
-      // allow requests with no origin (like mobile apps, Postman)
-      if (!origin) return callback(null, true);
-
-      if (allowedOrigins.includes(origin)) {
-        return callback(null, true);
-      } else {
-        return callback(new Error("Not allowed by CORS"));
-      }
-    },
-    credentials: true
+    origin: "*", // allow all (safe for now)
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 
-// Middleware
+
+app.options("*", cors());
+
 app.use(express.json());
 
 // Routes
@@ -46,15 +32,14 @@ app.use("/auth", authRoutes);
 app.use("/products", productRoutes);
 app.use("/user", userRoutes);
 
-// Root route
+// Root
 app.get("/", (req, res) => {
   res.send("API Running ");
 });
 
-// Error middleware
+// Error handler
 app.use(errorHandler);
 
-// Server
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () =>
