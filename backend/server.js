@@ -10,11 +10,11 @@ import userRoutes from "./routes/userRoutes.js";
 import errorHandler from "./middleware/errorMiddleware.js";
 
 dotenv.config();
-connectDB();
+await connectDB();
 
 const app = express();
 
-app.use(cors()); // Allow all origins for easier deployment troubleshooting
+app.use(cors());
 
 // Simple Request Logger for Deployment Debugging
 app.use((req, res, next) => {
